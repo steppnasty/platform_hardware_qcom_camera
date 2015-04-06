@@ -208,6 +208,7 @@ int32_t mm_camera_open(mm_camera_obj_t *my_obj)
 
     CDBG("%s:  begin\n", __func__);
 
+    usleep(1000000);
     snprintf(dev_name, sizeof(dev_name), "/dev/%s",
              mm_camera_util_get_dev_name(my_obj->my_hdl));
 
