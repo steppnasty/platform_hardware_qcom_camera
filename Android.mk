@@ -132,4 +132,7 @@ endif
 ifeq ($(V4L2_BASED_LIBCAM),true)
 include $(LOCAL_PATH1)/QCamera/Android.mk
 endif
+else ifeq ($(TARGET_BOARD_PLATFORM),msm7x30)
+  LOCAL_PATH1:= $(call my-dir)
+  include $(LOCAL_PATH1)/QCamera/Android.mk
 endif
