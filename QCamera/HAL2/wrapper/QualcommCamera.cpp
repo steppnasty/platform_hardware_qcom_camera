@@ -352,7 +352,7 @@ int trigger_action(const struct camera2_device *,
         int32_t ext1,
         int32_t ext2)
 {
-    return INVALID_OPERATION;
+    return OK;
 }
 
 int set_notify_callback(const struct camera2_device *device,
