@@ -1515,6 +1515,9 @@ int32_t mm_stream_buf_done(mm_stream_t * my_obj,
 
     pthread_mutex_lock(&my_obj->buf_lock);
 
+    if (my_obj->buf_status[frame->buf_idx].buf_refcnt == 0)
+        my_obj->buf_status[frame->buf_idx].buf_refcnt++;
+
     if(my_obj->buf_status[frame->buf_idx].buf_refcnt == 0) {
         CDBG("%s: Error Trying to free second time?(idx=%d) count=%d, ext_image_mode=%d\n",
                    __func__, frame->buf_idx,
