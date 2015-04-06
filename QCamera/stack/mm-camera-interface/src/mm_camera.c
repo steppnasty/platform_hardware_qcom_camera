@@ -463,7 +463,7 @@ on_error:
     * We need to enable below lock once we consider sync as saperate API 
     * and HAL needs to call after each camera open call. 
     */
-    //pthread_mutex_unlock(&my_obj->cam_lock);
+    pthread_mutex_unlock(&my_obj->cam_lock);
     return rc;
 
 }
