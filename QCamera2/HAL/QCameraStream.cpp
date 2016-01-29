@@ -399,7 +399,7 @@ int32_t QCameraStream::processZoomDone(preview_stream_ops_t *previewWindow,
  *==========================================================================*/
 int32_t QCameraStream::processDataNotify(mm_camera_super_buf_t *frame)
 {
-    ALOGI("%s:\n", __func__);
+    ALOGD("%s:\n", __func__);
     if (m_bActive) {
         mDataQ.enqueue((void *)frame);
         return mProcTh.sendCmd(CAMERA_CMD_TYPE_DO_NEXT_JOB, FALSE, FALSE);
@@ -426,7 +426,7 @@ int32_t QCameraStream::processDataNotify(mm_camera_super_buf_t *frame)
 void QCameraStream::dataNotifyCB(mm_camera_super_buf_t *recvd_frame,
                                  void *userdata)
 {
-    ALOGI("%s:\n", __func__);
+    ALOGD("%s:\n", __func__);
     QCameraStream* stream = (QCameraStream *)userdata;
     if (stream == NULL ||
         recvd_frame == NULL ||
@@ -465,7 +465,7 @@ void *QCameraStream::dataProcRoutine(void *data)
     QCameraStream *pme = (QCameraStream *)data;
     QCameraCmdThread *cmdThread = &pme->mProcTh;
 
-    ALOGI("%s: E", __func__);
+    ALOGD("%s: E", __func__);
     do {
         do {
             ret = cam_sem_wait(&cmdThread->cmd_sem);
