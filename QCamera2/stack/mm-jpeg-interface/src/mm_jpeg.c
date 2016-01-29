@@ -450,6 +450,7 @@ OMX_ERRORTYPE mm_jpeg_encoding_mode(
   return rc;
 }
 
+#ifndef _MSM7X30_
 /** mm_jpeg_metadata:
  *
  *  Arguments:
@@ -490,6 +491,7 @@ OMX_ERRORTYPE mm_jpeg_metadata(
   }
   return OMX_ErrorNone;
 }
+#endif
 
 /** map_jpeg_format:
  *
@@ -1106,12 +1108,14 @@ static OMX_ERRORTYPE mm_jpeg_configure_job_params(
     return ret;
   }
 
+#ifndef _MSM7X30_
   /* set metadata */
   ret = mm_jpeg_metadata(p_session);
   CDBG_ERROR("%s: config makernote data failed", __func__);
   if (OMX_ErrorNone != ret) {
     return ret;
   }
+#endif
 
   return ret;
 }
