@@ -20,6 +20,10 @@ ifeq ($(strip $(TARGET_USES_ION)),true)
     LOCAL_CFLAGS += -DUSE_ION
 endif
 
+ifeq ($(TARGET_BOARD_PLATFORM),msm7x30)
+        LOCAL_CFLAGS += -D_MSM7X30_
+endif
+
 LOCAL_SRC_FILES := \
     src/mm_jpeg_queue.c \
     src/mm_jpeg_exif.c \

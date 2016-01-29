@@ -22,6 +22,10 @@ LOCAL_CFLAGS = -Wall -Werror
 #Debug logs are enabled
 #LOCAL_CFLAGS += -DDISABLE_DEBUG_LOG
 
+ifeq ($(TARGET_BOARD_PLATFORM),msm7x30)
+        LOCAL_CFLAGS += -D_MSM7X30_
+endif
+
 ifneq ($(call is-platform-sdk-version-at-least,18),true)
 LOCAL_CFLAGS += -DUSE_JB_MR1
 endif

@@ -42,6 +42,14 @@ extern "C" {
 #include <mm_camera_interface.h>
 }
 
+#ifdef _MSM7X30_
+#define CAMERA_ION_HEAP_ID ION_CAMERA_HEAP_ID
+#define CAMERA_GRALLOC_HEAP_ID GRALLOC_USAGE_PRIVATE_CAMERA_HEAP
+#else
+#define CAMERA_ION_HEAP_ID ION_IOMMU_HEAP_ID
+#define CAMERA_GRALLOC_HEAP_ID GRALLOC_USAGE_PRIVATE_IOMMU_HEAP
+#endif
+
 using namespace android;
 
 namespace qcamera {
@@ -438,7 +446,7 @@ void *QCameraHeapMemory::getPtr(int index) const
  *==========================================================================*/
 int QCameraHeapMemory::allocate(int count, int size)
 {
-    int heap_mask = 0x1 << ION_IOMMU_HEAP_ID;
+    int heap_mask = 0x1 << CAMERA_ION_HEAP_ID;
     int rc = alloc(count, size, heap_mask);
     if (rc < 0)
         return rc;
@@ -479,7 +487,7 @@ int QCameraHeapMemory::allocate(int count, int size)
  *==========================================================================*/
 int QCameraHeapMemory::allocateMore(int count, int size)
 {
-    int heap_mask = 0x1 << ION_IOMMU_HEAP_ID;
+    int heap_mask = 0x1 << CAMERA_ION_HEAP_ID;
     int rc = alloc(count, size, heap_mask);
     if (rc < 0)
         return rc;
@@ -656,7 +664,7 @@ QCameraStreamMemory::~QCameraStreamMemory()
  *==========================================================================*/
 int QCameraStreamMemory::allocate(int count, int size)
 {
-    int heap_mask = 0x1 << ION_IOMMU_HEAP_ID;
+    int heap_mask = 0x1 << CAMERA_ION_HEAP_ID;
     int rc = alloc(count, size, heap_mask);
     if (rc < 0)
         return rc;
@@ -683,7 +691,7 @@ int QCameraStreamMemory::allocate(int count, int size)
  *==========================================================================*/
 int QCameraStreamMemory::allocateMore(int count, int size)
 {
-    int heap_mask = 0x1 << ION_IOMMU_HEAP_ID;
+    int heap_mask = 0x1 << CAMERA_ION_HEAP_ID;
     int rc = alloc(count, size, heap_mask);
     if (rc < 0)
         return rc;
@@ -1187,7 +1195,7 @@ int QCameraGrallocMemory::allocate(int count, int /*size*/)
          goto end;
     }
 
-    gralloc_usage = GRALLOC_USAGE_HW_CAMERA_WRITE | GRALLOC_USAGE_PRIVATE_IOMMU_HEAP;
+    gralloc_usage = GRALLOC_USAGE_HW_CAMERA_WRITE | CAMERA_GRALLOC_HEAP_ID;
     err = mWindow->set_usage(mWindow, gralloc_usage);
     if(err != 0) {
         /* set_usage error out */

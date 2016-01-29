@@ -1,4 +1,4 @@
-ifeq ($(call is-vendor-board-platform,QCOM),true)
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
 OLD_LOCAL_PATH := $(LOCAL_PATH)
 LOCAL_PATH := $(call my-dir)
 
